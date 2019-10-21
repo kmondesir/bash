@@ -4,6 +4,7 @@ remote_user='guest'
 share='public'
 
 declare -r mount=~/mount
+declare -r temp=~/temp
 
 declare -r osxdocuments=~/Documents
 declare -r osxdesktop=~/Desktop
@@ -18,19 +19,21 @@ win10pictures="/users/${remote_user}/documents"
 if [[ ! -d "${mount}/${local_user}" ]]; then
 
 # https://stackoverflow.com/questions/51715099/how-to-get-only-folder-size-from-du/51715324
-local_size=$(du -b --max-depth=0 ~/ | cut -f1)
-target_size=$(du -b --max-depth=0 ${mount}\${local_user} | cut -f1)
+# local_size=$(du -b --max-depth=0 ~/ | cut -f1)
+# target_size=$(du -b --max-depth=0 ${mount}\${local_user} | cut -f1)
 
 	if [[ local_size < target_size ]]; then
 		echo "Please type the password to your remote system and press ENTER:"
 		read password
 		mkdir ${mount}/${local_user}
-		mount -t smbfs //${remote_user}:${password}@${destination}/${share} ${mount}/${local_user}	
-
-		cp -aRv ${osxdocuments}/* ${mount}/${local_user}/${local_user}	
-		cp -aRv ${osxdesktop}/* ${mount}/${local_user}/${local_user}
-		cp -aRv ${osxdownloads}/* ${mount}/${local_user}/${local_user}
-		cp -aRv ${osxpictures}/* ${mount}/${local_user}/${local_user}
+		mount -t smbfs //${remote_user}:${password}@${destination}/${share} ${mount}/${local_user}
+		# https://www.ostechnix.com/the-mktemp-command-tutorial-with-examples-for-beginners/
+		tmp=$(mktemp -d ~/tmp)
+		# https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps
+		rsync --archive --progress --partial-dir=${tmp} ${osxdocuments}/* ${mount}/${local_user}/${local_user}	
+		rsync --archive --progress --partial-dir=${tmp} ${osxdesktop}/* ${mount}/${local_user}/${local_user}
+		rsync --archive --progress --partial-dir=${tmp} ${osxdownloads}/* ${mount}/${local_user}/${local_user}
+		rsync --archive --progress --partial-dir=${tmp} ${osxpictures}/* ${mount}/${local_user}/${local_user}
 
 		umount ${mount}/${local_user}
 		sleep 5s
