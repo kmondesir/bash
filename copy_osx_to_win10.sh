@@ -3,12 +3,12 @@ local_user=$2
 remote_user='guest'
 share='public'
 
-mount=~/mount
+declare -r mount=~/mount
 
-osxdocuments=~/Documents
-osxdesktop=~/Desktop
-osxdownloads=~/Downloads
-osxpictures=~/Pictures
+declare -r osxdocuments=~/Documents
+declare -r osxdesktop=~/Desktop
+declare -r osxdownloads=~/Downloads
+declare -r osxpictures=~/Pictures
 
 win10documents="/users/${remote_user}/documents"
 win10desktop="/users/${remote_user}/desktop"
@@ -16,22 +16,33 @@ win10downloads="/users/${remote_user}/downloads"
 win10pictures="/users/${remote_user}/documents"
 
 if [[ ! -d "${mount}/${local_user}" ]]; then
-	echo "Please type the password to your remote system and press ENTER:"
-	read password
-	mkdir ${mount}/${local_user}
-	mount -t smbfs //${remote_user}:${password}@${destination}/${share} ${mount}/${local_user}	
-	
-	cp -aRv ${osxdocuments}/* ${mount}/${local_user}/${local_user}	
-	cp -aRv ${osxdesktop}/* ${mount}/${local_user}/${local_user}
-	cp -aRv ${osxdownloads}/* ${mount}/${local_user}/${local_user}
-	cp -aRv ${osxpictures}/* ${mount}/${local_user}/${local_user}
-		
-	umount ${mount}/${local_user}
-	sleep 5s
-	rm -r ${mount}/${local_user}
-	sleep 5s
-	exit 0
+
+# https://stackoverflow.com/questions/51715099/how-to-get-only-folder-size-from-du/51715324
+local_size=$(du -b --max-depth=0 ~/ | cut -f1)
+target_size=$(du -b --max-depth=0 ${mount}\${local_user} | cut -f1)
+
+	if [[ local_size < target_size ]]; then
+		echo "Please type the password to your remote system and press ENTER:"
+		read password
+		mkdir ${mount}/${local_user}
+		mount -t smbfs //${remote_user}:${password}@${destination}/${share} ${mount}/${local_user}	
+
+		cp -aRv ${osxdocuments}/* ${mount}/${local_user}/${local_user}	
+		cp -aRv ${osxdesktop}/* ${mount}/${local_user}/${local_user}
+		cp -aRv ${osxdownloads}/* ${mount}/${local_user}/${local_user}
+		cp -aRv ${osxpictures}/* ${mount}/${local_user}/${local_user}
+
+		umount ${mount}/${local_user}
+		sleep 5s
+		rm -r ${mount}/${local_user}
+		sleep 5s
+		exit 0
+	else
+		echo "The local size is greater than the target"
+		exit 1
+	fi
 else
+	echo "mount directory already exists"
 	exit 1
 fi
 
