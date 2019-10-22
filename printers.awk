@@ -1,4 +1,4 @@
-BEGIN { FS=";"; printf "%15s %12s %50s\n", "Title", "IP", "Path" 
+BEGIN { FS=";"; printf "%15s %15s %12s %50s\n", "Title", "Location", "IP", "Path" 
 printf "-----------------------------------" }
 { printf "%15s %12s %50\n", $1, $2, $3 }
 END { print "-----------------------------------"
