@@ -25,7 +25,7 @@ function validate_ip()
 if [[ validate_ip ]]; then
 	if [[ -f ${package} ]]; then 
 		# installs a printer based on 4 arguments entered at the terminal
-		echo "lpadmin -p ${name} -L ${location} -E -v lpd://${address} -P ${package}"
+		lpadmin -p ${name} -L ${location} -E -v lpd://${address} -P ${package}"
 		exit 0
 	else
 
