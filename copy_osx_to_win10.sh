@@ -18,10 +18,10 @@ win10pictures="/users/${remote_user}/documents"
 if [[ ! -d "${mount}/${local_user}" ]]; then
 
 # https://stackoverflow.com/questions/51715099/how-to-get-only-folder-size-from-du/51715324
-# local_size=$(du -b --max-depth=0 ~/ | cut -f1)
-# target_size=$(du -b --max-depth=0 ${mount}\${local_user} | cut -f1)
+# local_size=$(du -sb --max-depth=0 ~/ | cut -f1)
+# target_size=$(du -sb --max-depth=0 ${mount}\${local_user} | cut -f1)
 
-	if [[ local_size < target_size ]]; then
+	if [[ true ]]; then
 		echo "Please type the password to your remote system and press ENTER:"
 		read password
 		mkdir ${mount}/${local_user}
