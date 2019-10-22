@@ -3,7 +3,7 @@
 # location=$(awk -f printers.awk $0 ~${name} {print $2} printers.txt)
 # address=$(awk -f printers.awk $0 ~${name} {print $3} printers.txt)
 # package=$(awk -f printers.awk $0 ~${name} {print $4} printers.txt)
-
+# https://likegeeks.com/awk-command/
 # if [[ $name ]]; then
 # 	if [[ -f $list ]]; then
 # 		echo "lpadmin -p ${name} -L ${location} -E -v lpd://${address} -P ${package}"
