@@ -4,7 +4,6 @@ remote_user='guest'
 share='public'
 
 declare -r mount=~/mount
-declare -r temp=~/temp
 
 declare -r osxdocuments=~/Documents
 declare -r osxdesktop=~/Desktop
@@ -28,7 +27,7 @@ if [[ ! -d "${mount}/${local_user}" ]]; then
 		mkdir ${mount}/${local_user}
 		mount -t smbfs //${remote_user}:${password}@${destination}/${share} ${mount}/${local_user}
 		# https://www.ostechnix.com/the-mktemp-command-tutorial-with-examples-for-beginners/
-		tmp=$(mktemp -d ~/tmp)
+		tmp=$(mktemp -d ~/tmp-${local_user})
 		# https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps
 		rsync --archive --progress --partial-dir=${tmp} ${osxdocuments}/* ${mount}/${local_user}/${local_user}	
 		rsync --archive --progress --partial-dir=${tmp} ${osxdesktop}/* ${mount}/${local_user}/${local_user}
