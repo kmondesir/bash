@@ -12,12 +12,10 @@ if [[ $name ]]; then
 		echo "lpadmin -p ${name} -L ${location} -E -v lpd://${address} -P ${package}"
 		exit 0
 	else
-		echo "list does not exit"
+		echo "list does not exit or not valid"
 		exit 1
 	fi
 else
 	echo "Name field is blank"
 	exit 1
 fi
-
-printers.txt | awk -f printers.awk

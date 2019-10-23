@@ -3,15 +3,15 @@ remote_user=$1
 declare -r mount=~/mnt
 declare -r temp=~/tmp
 
-declare -r osxdocuments=Documents
-declare -r osxdesktop=Desktop
-declare -r osxdownloads=Downloads
-declare -r osxpictures=Pictures
+declare -r documents=Documents
+declare -r desktop=Desktop
+declare -r downloads=Downloads
+declare -r pictures=Pictures
 
-win10documents="/Users/${remote_user}/Documents"
-win10desktop="/Users/${remote_user}/Desktop"
-win10downloads="/Users/${remote_user}/Downloads"
-win10pictures="/Users/${remote_user}/Pictures"
+osx_documents="/Users/${remote_user}/${documents}"
+osx_desktop="/Users/${remote_user}/${desktop}"
+osx_downloads="/Users/${remote_user}/${downloads}"
+osx_pictures="/Users/${remote_user}/${pictures}"
 
 if [[ -d "${mount}" ]]; then
 
@@ -26,10 +26,10 @@ if [[ -d "${mount}" ]]; then
 		# https://www.ostechnix.com/the-mktemp-command-tutorial-with-examples-for-beginners/
 		
 		# https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps
-		rsync --archive --progress --partial-dir=${temp} ~/${osxdocuments}/* ${mount}/${win10desktop}	
-		rsync --archive --progress --partial-dir=${temp} ~/${osxdesktop}/* ${mount}/${win10desktop}
-		rsync --archive --progress --partial-dir=${temp} ~/${osxdownloads}/* ${mount}/${win10documents}
-		rsync --archive --progress --partial-dir=${temp} ~/${osxpictures}/* ${mount}/${win10pictures}
+		rsync --archive --progress --partial-dir=${temp} ~/${documents}/* ${mount}/${osx_documents}	
+		rsync --archive --progress --partial-dir=${temp} ~/${desktop}/* ${mount}/${osx_desktop}
+		rsync --archive --progress --partial-dir=${temp} ~/${downloads}/* ${mount}/${osx_downloads}
+		rsync --archive --progress --partial-dir=${temp} ~/${pictures}/* ${mount}/${osx_pictures}
 
 		sleep 5s
 		exit 0
