@@ -1,8 +1,7 @@
-name=$1
-location=$2
-address=$3
-package=$4
+export name=$1
+export list=$2
 
+<<<<<<< HEAD
 function validate_ip()
 {
 	# https://www.linuxjournal.com/content/validating-ip-address-bash-script
@@ -26,14 +25,27 @@ if [[ validate_ip ]]; then
 	if [[ -f ${package} ]]; then 
 		# installs a printer based on 4 arguments entered at the terminal
 		lpadmin -p ${name} -L ${location} -E -v lpd://${address} -P ${package}"
+=======
+# https://www.tecmint.com/learn-awk-variables-numeric-expressions-and-assignment-operators/
+location="$(awk -v title="$name" `/^title/ {value=$2 print value}` "$list")"
+address="$(awk -v title="$name" `/^title/ {value=$3 print value}` "$list")"
+package="$(awk -v title="$name" `/^title/ {value=$4 print value}` "$list")"
+# https://likegeeks.com/awk-command/
+if [[ $name ]]; then
+	if [[ -f $list ]]; then
+    # The script should be run with the following syntax: install_printers 'photocopier' 'printers.csv'
+		echo "lpadmin -p ${name} -L ${location} -E -v lpd://${address} -P ${package}"
+>>>>>>> 4bec2d53de7d5489b477b5c5c6cb8ce431724fc8
 		exit 0
 	else
-
-		echo "${package} is not a valid file"
+		echo "list does not exit or not valid"
 		exit 1
 	fi
 else
-	echo "Your ip address is not valid"
+	echo "Name field is blank"
 	exit 1
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4bec2d53de7d5489b477b5c5c6cb8ce431724fc8
 fi
