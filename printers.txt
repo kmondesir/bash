@@ -1,7 +1,7 @@
-Title;Location;IP;Path
-jack;upstairs;10.10.9.1;~/path/jack
-jill;downstairs;10.4.9.2;~/path/jill
-kendog;basement;9.3.6.8;~/path/kendog
-jonny;hallway;127.0.0.1;~/path/jonny
-rodney;penthouse;192.168.1.1;~/path/rodney
-bob;closet;172.16.0.1;~/path/bob
+Title   Location    IP  Path
+jack    upstairs    10.10.9.1   ~/path/jack
+jill    downstairs  10.4.9.2    ~/path/jill
+kendog  basement    9.3.6.8 ~/path/kendog
+jonny   hallway 127.0.0.1   ~/path/jonny
+rodney  penthouse   192.168.1.1 ~/path/rodney
+bob closet  172.16.0.1  ~/path/bob

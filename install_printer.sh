@@ -1,20 +1,22 @@
-# name=$1
-# list=$2
-# location=$(awk -f printers.awk $0 ~${name} {print $2} printers.txt)
-# address=$(awk -f printers.awk $0 ~${name} {print $3} printers.txt)
-# package=$(awk -f printers.awk $0 ~${name} {print $4} printers.txt)
-# https://likegeeks.com/awk-command/
-# if [[ $name ]]; then
-# 	if [[ -f $list ]]; then
-# 		echo "lpadmin -p ${name} -L ${location} -E -v lpd://${address} -P ${package}"
-# 		exit 0
-# 	else
-# 		echo "list does not exit"
-# 		exit 1
-# 	fi
-# else
-# 	echo "Name field is blank"
-# 	exit 1
-# fi
 
-printers.txt | awk -f printers.awk
+#!/bin/bash
+
+export name=$1
+export list="./printers"
+location=awk /^"$name"/ { print $2 } $(echo $list) 
+address=awk /^"$name"/  { print $3 } $("$list") 
+package=awk /^"$name"/ { print $4 } $("$list") 
+# https://likegeeks.com/awk-command/
+# http://www.theunixschool.com/2012/05/awk-match-pattern-in-file-in-linux.html
+if [[ $name ]]; then
+	if [[ -f $list ]]; then
+		echo "lpadmin -p ${name} -L ${location} -E -v lpd://${address} -P ${package}"
+		exit 0
+	else
+		echo "list does not exit"
+		exit 1
+	fi
+else
+	echo "Name field is blank"
+	exit 1
+fi
