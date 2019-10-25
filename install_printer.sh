@@ -1,18 +1,21 @@
-export name=$1
-export list=$2
+#!/bin/bash
 
-# https://www.tecmint.com/learn-awk-variables-numeric-expressions-and-assignment-operators/
-location="$(awk -v title="$name" `/^title/ {value=$2 print value}` "$list")"
-address="$(awk -v title="$name" `/^title/ {value=$3 print value}` "$list")"
-package="$(awk -v title="$name" `/^title/ {value=$4 print value}` "$list")"
+export -p name=$1
+export -p list=$2
+echo $name
+echo $list
+# https://www.tecmint.com/use-shell-script-variable-in-awk/
+location=`echo $list | awk -F\t -v t="$(echo $name)" '/^t/{print $2}'`
+address=$(awk /^$name/ $list )
+package=$(awk /^$name/ $list )
 # https://likegeeks.com/awk-command/
+# http://www.theunixschool.com/2012/05/awk-match-pattern-in-file-in-linux.html
 if [[ $name ]]; then
 	if [[ -f $list ]]; then
-    # The script should be run with the following syntax: install_printers 'photocopier' 'printers.csv'
-		echo "lpadmin -p ${name} -L ${location} -E -v lpd://${address} -P ${package}"
+		echo "lpadmin -p $name -L $location -E -v lpd://$address -P $package"
 		exit 0
 	else
-		echo "list does not exit or not valid"
+		echo "list does not exit"
 		exit 1
 	fi
 else
