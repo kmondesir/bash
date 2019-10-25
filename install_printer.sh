@@ -4,7 +4,7 @@ export -p name=$1
 export -p list=$2
 echo $name
 echo $list
-location=$(awk /^$name/ $list )
+location=`echo $list | awk -v t=$(echo $name) /^t/{print $2}`
 address=$(awk /^$name/ $list )
 package=$(awk /^$name/ $list )
 # https://likegeeks.com/awk-command/
