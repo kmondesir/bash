@@ -1,7 +1,6 @@
-target=$1
+
 remote_user=$2
-share=$3
-admin=$4
+
 
 declare -r mount=~/mnt
 declare -r temp=~/tmp
@@ -25,10 +24,7 @@ if [[ -d "${mount}" ]]; then
 # target_size=$(du -sb --max-depth=0 ${mount}\${local_user} | cut -f1)
 
 	if [[ true ]]; then
-		#For security purposes the Administrator password is read into the system during the mounting of the share
-		echo "Please type the password to your remote system and press ENTER:"
-		read -s password
-		mount -t smbfs //${admin}:${password}@${target}/${share} ${mount}
+		
 		# https://www.ostechnix.com/the-mktemp-command-tutorial-with-examples-for-beginners/
 		
 		# https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps
