@@ -23,7 +23,10 @@ if [[ -d "${mount}" ]]; then
 # local_size=$(du -sb --max-depth=0 ~/ | cut -f1)
 # target_size=$(du -sb --max-depth=0 ${mount}\${local_user} | cut -f1)
 
-	if [[ true ]]; then
+test=$(du -bs ~/ | awk '{print $1}')
+control=$(du -bs ~/mnt | awk '{print $1}')
+
+	if [[ $test -gt $control ]]; then
 		
 		# https://www.ostechnix.com/the-mktemp-command-tutorial-with-examples-for-beginners/
 		

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-# Mounts an smb share using the following syntax mount_smb 10.3.4.2 $C CBW
+# Mounts an smb share using the following syntax mount_smb 10.3.4.2 '$C' 'CBW'
 target=$1
 share=$2
 admin=$3

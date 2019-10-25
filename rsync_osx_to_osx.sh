@@ -19,8 +19,11 @@ if [[ -d "${mount}" ]]; then
 # local_size=$(du -sb --max-depth=0 ~/ | cut -f1)
 # target_size=$(du -sb --max-depth=0 ${mount}\${local_user} | cut -f1)
 
-	if [[ true ]]; then
+test=$(du -bs ~/ | awk '{print $1}')
+control=$(du -bs ~/mnt | awk '{print $1}')
 
+	if [[ $test -gt $control ]]; then
+		# https://www.linuxquestions.org/questions/programming-9/bash-script-calculate-directory-size-698692/
 		# https://www.ostechnix.com/the-mktemp-command-tutorial-with-examples-for-beginners/
 		
 		# https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps
@@ -32,7 +35,7 @@ if [[ -d "${mount}" ]]; then
 		sleep 5s
 		exit 0
 	else
-		echo "The local size is greater than the target"
+		echo "The source size is greater than the target"
 		exit 1
 	fi
 else
