@@ -1,16 +1,17 @@
-
 #!/bin/bash
 
-export name=$1
-export list="./printers"
-location=awk /^"$name"/ { print $2 } $(echo $list) 
-address=awk /^"$name"/  { print $3 } $("$list") 
-package=awk /^"$name"/ { print $4 } $("$list") 
+export -p name=$1
+export -p list=$2
+echo $name
+echo $list
+location=$(awk /^$name/ $list )
+address=$(awk /^$name/ $list )
+package=$(awk /^$name/ $list )
 # https://likegeeks.com/awk-command/
 # http://www.theunixschool.com/2012/05/awk-match-pattern-in-file-in-linux.html
 if [[ $name ]]; then
 	if [[ -f $list ]]; then
-		echo "lpadmin -p ${name} -L ${location} -E -v lpd://${address} -P ${package}"
+		echo "lpadmin -p $name -L $location -E -v lpd://$address -P $package"
 		exit 0
 	else
 		echo "list does not exit"
