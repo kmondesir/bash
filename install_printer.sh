@@ -5,7 +5,7 @@ export -p list=$2
 echo $name
 echo $list
 # https://www.tecmint.com/use-shell-script-variable-in-awk/
-location=`echo $list | awk -F\t -v t="$(echo $name)" /^t/'{print $2}'`
+location=`echo $list | awk -F\t -v t="$(echo $name)" '/^t/{print $2}'`
 address=$(awk /^$name/ $list )
 package=$(awk /^$name/ $list )
 # https://likegeeks.com/awk-command/
