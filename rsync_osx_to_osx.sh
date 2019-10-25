@@ -1,39 +1,6 @@
-<<<<<<< HEAD
+#!/bin/bash
 
 
-=======
-<<<<<<< HEAD
-destination=$1
-local_user=$2
-remote_user='guest'
-share='public'
-
-mount=~/mount
-
-osxdocuments=~/Documents
-osxdesktop=~/Desktop
-osxdownloads=~/Downloads
-osxpictures=~/Pictures
-
-if [[ ! -d "${mount}/${local_user}" ]]; then
-	echo "Please type the password to your remote system and press ENTER:"
-	read password
-	mkdir ${mount}/${local_user}
-	mount -t smbfs //${remote_user}:${password}@${destination}/${share} ${mount}/${local_user}	
-	
-	cp -aRv ${osxdocuments}/* ${mount}/${local_user}/${local_user}	
-	cp -aRv ${osxdesktop}/* ${mount}/${local_user}/${local_user}
-	cp -aRv ${osxdownloads}/* ${mount}/${local_user}/${local_user}
-	cp -aRv ${osxpictures}/* ${mount}/${local_user}/${local_user}
-		
-	umount ${mount}/${local_user}
-	sleep 5s
-	rm -r ${mount}/${local_user}
-	sleep 5s
-	exit 0
-else
-=======
->>>>>>> 13c9777dff29694ee4b831b2bc561059d2e40461
 remote_user=$1
 
 declare -r mount=~/mnt
@@ -70,6 +37,5 @@ if [[ -d "${mount}" ]]; then
 	fi
 else
 	echo "mount folder does NOT exist"
->>>>>>> 4bec2d53de7d5489b477b5c5c6cb8ce431724fc8
 	exit 1
 fi
