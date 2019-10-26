@@ -15,10 +15,17 @@ declare -r osxpictures="~/Pictures"
 declare -r osxmovies="~/Movies"
 declare -r osxmusic="~/Music"
 
-win10documents="/users/$remote_user/documents"
-win10desktop="/users/$remote_user/desktop"
-win10downloads="/users/$remote_user/downloads"
-win10pictures="/users/$remote_user/documents"
+mnt_documents="$mount/$remote_user/documents"
+mnt_desktop="$mount/$remote_user/desktop"
+mnt_downloads="$mount/$remote_user/downloads"
+mnt_pictures="$mount/$remote_user/pictures"
+mnt_movies="$mount/$remote_user/movies"
+mnt_music="$mount/$remote_user/music"
+
+test=$(sudo du -s ~/ | awk '{print $1}')
+control=$(sudo du -s ~/mnt | awk '{print $1}')
+echo "test :" $(($test/$megabyte)) " KB"
+echo "control :" $(($control/$megabyte)) " KB"
 
 if [[ ! -d "$mount"/$remote_user ]]; then
 
@@ -26,25 +33,26 @@ if [[ ! -d "$mount"/$remote_user ]]; then
 	# https://stackoverflow.com/questions/51715099/how-to-get-only-folder-size-from-du/51715324
 	# local_size=$(du -sb --max-depth=0 ~/ | cut -f1)
 	# target_size=$(du -sb --max-depth=0 ${mount}\${local_user} | cut -f1)
-	mkdir "$mount"/$remote_user
+	mkdir "$mount"/"$remote_user"
+	mkdir "$mnt_documents"
+	mkdir "$mnt_desktop"
+	mkdir "$mnt_downloads"
+	mkdir "$mnt_pictures"
+	mkdir "$mnt_movies"
+	mkdir "$mnt_music"
 
 fi
-
-test=$(sudo du -s ~/ | awk '{print $1}')
-control=$(sudo du -s ~/mnt | awk '{print $1}')
-echo "test :" $(($test/$megabyte)) " KB"
-echo "control :" $(($control/$megabyte)) " KB"
 
 if [[ $test -gt $control ]]; then
 	
 	# https://www.ostechnix.com/the-mktemp-command-tutorial-with-examples-for-beginners/
 	# https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps
-	rsync --archive --progress --partial-dir="$temp" "$osxdocuments"/* "$mount"/"$remote_user"
-	rsync --archive --progress --partial-dir="$temp" "$osxdesktop"/* "$mount"/"$remote_user"
-	rsync --archive --progress --partial-dir="$temp" "$osxdownloads"/* "$mount"/"$remote_user"
-	rsync --archive --progress --partial-dir="$temp" "$osxpictures"/* "$mount"/"$remote_user"
-	rsync --archive --progress --partial-dir="$temp" "$osxmovies"/* "$mount"/"$remote_user"
-	rsync --archive --progress --partial-dir="$temp" "$osxmusic"/* "$mount"/"$remote_user"
+	rsync --archive --progress --partial-dir="$temp" "$osxdocuments"/* "$mnt_documents"
+	rsync --archive --progress --partial-dir="$temp" "$osxdesktop"/* "$mnt_desktop"
+	rsync --archive --progress --partial-dir="$temp" "$osxdownloads"/* "$mnt_downloads"
+	rsync --archive --progress --partial-dir="$temp" "$osxpictures"/* "$mnt_pictures"
+	rsync --archive --progress --partial-dir="$temp" "$osxmovies"/* "$mnt_movies"
+	rsync --archive --progress --partial-dir="$temp" "$osxmusic"/* "$mnt_music"
 	sleep 5s
 	echo "The local size is $((($test - $control)/$megabyte)) megabytes less than target"
 	exit 0
