@@ -1,16 +1,17 @@
 #!/bin/bash
 
+
 export -p name=$1
 export -p list=$2
 export -p reference=$3
 echo $name
 echo $list
+echo $reference
 # https://www.tecmint.com/use-shell-script-variable-in-awk/
 location=$(awk -f "$reference" search="$name" column="2" "$list")
 address=$(awk -f "$reference" search="$name" column="3" "$list")
 package=$(awk -f "$reference" search="$name" column="4" "$list")
 
-echo $location
 # https://likegeeks.com/awk-command/
 # http://www.theunixschool.com/2012/05/awk-match-pattern-in-file-in-linux.html
 if [[ $name ]]; then

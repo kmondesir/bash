@@ -21,6 +21,8 @@ if [[ -d "${mount}" ]]; then
 
 test=$(du -bs ~/ | awk '{print $1}')
 control=$(du -bs ~/mnt | awk '{print $1}')
+echo $test
+echo $control
 
 	if [[ $test -gt $control ]]; then
 		# https://www.linuxquestions.org/questions/programming-9/bash-script-calculate-directory-size-698692/
