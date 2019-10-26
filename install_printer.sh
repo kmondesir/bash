@@ -4,9 +4,11 @@
 export -p name=$1
 export -p list=$2
 export -p reference=$3
+
 echo $name
 echo $list
 echo $reference
+
 # https://www.tecmint.com/use-shell-script-variable-in-awk/
 location=$(awk -f "$reference" search="$name" column="2" "$list")
 address=$(awk -f "$reference" search="$name" column="3" "$list")
