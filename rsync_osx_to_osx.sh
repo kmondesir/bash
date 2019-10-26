@@ -1,6 +1,10 @@
 #!/bin/bash
 
 
+# The script should be run with the following syntax: copy_osx_to_osx.sh 'remote'
+# The position arguments are as follows
+# 1: name of the user
+# No other arguments are required. This script should be run after the successful completion of mount_smb.
 remote_user=$1
 
 declare -r mount=~/mnt
@@ -12,8 +16,6 @@ osx_downloads="/Users/${remote_user}/Downloads"
 osx_pictures="/Users/${remote_user}/Pictures"
 
 if [[ -d "${mount}" ]]; then
-
-# The script should be run with the following syntax: copy_osx_to_osx.sh 'remote'
 
 # https://stackoverflow.com/questions/51715099/how-to-get-only-folder-size-from-du/51715324
 # local_size=$(du -sb --max-depth=0 ~/ | cut -f1)
