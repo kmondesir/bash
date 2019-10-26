@@ -6,7 +6,7 @@ target=$1
 share=$2
 admin=$3
 
-mount=~/mnt
+declare -r mount=~/mnt
 
 # For security purposes the Administrator password is read into the system during the mounting of the share
 echo "Please type the password to your remote system and press ENTER:"

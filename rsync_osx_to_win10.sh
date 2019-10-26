@@ -3,6 +3,8 @@
 
 declare -r mount=~/mnt
 declare -r temp=~/tmp
+declare -r megabyte=1000000
+declare -r kilobyte=1000
 
 declare -r osxdocuments=~/Documents
 declare -r osxdesktop=~/Desktop
@@ -14,7 +16,6 @@ win10desktop="/users/${remote_user}/desktop"
 win10downloads="/users/${remote_user}/downloads"
 win10pictures="/users/${remote_user}/documents"
 
-
 if [[ -d "${mount}" ]]; then
 
 # The script should be run with the following syntax: copy_osx_to_win10.sh '10.19.0.1' 'remote' 'C$' 'admin'
@@ -25,6 +26,8 @@ if [[ -d "${mount}" ]]; then
 
 test=$(du -bs ~/ | awk '{print $1}')
 control=$(du -bs ~/mnt | awk '{print $1}')
+echo "test :" $(($test/$megabyte)) 
+echo "control :" $(($control/$megabyte))
 
 	if [[ $test -gt $control ]]; then
 		
@@ -38,7 +41,7 @@ control=$(du -bs ~/mnt | awk '{print $1}')
 		sleep 5s
 		exit 0
 	else
-		echo "The local size is greater than the target"
+		echo "The local size is greater $((($control - $test)/$megabyte)) than the target"
 		exit 1
 	fi
 else
