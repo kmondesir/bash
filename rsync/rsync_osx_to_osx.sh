@@ -39,6 +39,8 @@ echo "control :" $(($control/$megabyte)) " KB"
 		rsync --archive --progress --partial-dir="$temp" ~/Desktop/* "$mount"/"$osx_desktop"
 		rsync --archive --progress --partial-dir="$temp" ~/Downloads/* "$mount"/"$osx_downloads"
 		rsync --archive --progress --partial-dir="$temp" ~/Pictures/* "$mount"/"$osx_pictures"
+		rsync --archive --progress --partial-dir="$temp" ~/Pictures/* "$mount"/"$osx_movies"
+		rsync --archive --progress --partial-dir="$temp" ~/Pictures/* "$mount"/"$osx_music"
 
 		"The local size is $((($test - $control)/$megabyte)) megabytes less than target"
 		sleep 5s
