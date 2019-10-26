@@ -12,7 +12,7 @@ declare -r mount=~/mnt
 echo "Please type the password to your remote system and press ENTER:"
 read -s password
 
-if ! grep -q $mount 
+if ! grep -qs $mount /proc/mounts; then
     mount -t smbfs //${admin}:${password}@${target}/${share} ${mount}
     exit 0
 else
