@@ -9,6 +9,8 @@ remote_user=$1
 
 declare -r mount=~/mnt
 declare -r temp=~/tmp
+declare -r megabyte=1000000
+declare -r kilobyte=1000
 
 osx_documents="/Users/$remote_user/Documents"
 osx_desktop="/Users/$remote_user/Desktop"
@@ -23,10 +25,10 @@ if [[ -d "${mount}" ]]; then
 # local_size=$(du -sb --max-depth=0 ~/ | cut -f1)
 # target_size=$(du -sb --max-depth=0 ${mount}\${local_user} | cut -f1)
 
-test=$(du -bs ~/ | awk '{print $1}')
-control=$(du -bs ~/mnt | awk '{print $1}')
-echo $test
-echo $control
+test=$(du -s ~/ | awk '{print $1}')
+control=$(du -s ~/mnt | awk '{print $1}')
+echo "test :" $(($test/$megabyte)) " KB"
+echo "control :" $(($control/$megabyte)) " KB"
 
 	if [[ $test -gt $control ]]; then
 		# https://www.linuxquestions.org/questions/programming-9/bash-script-calculate-directory-size-698692/
@@ -38,10 +40,11 @@ echo $control
 		rsync --archive --progress --partial-dir="$temp" ~/Downloads/* "$mount"/"$osx_downloads"
 		rsync --archive --progress --partial-dir="$temp" ~/Pictures/* "$mount"/"$osx_pictures"
 
+		"The local size is $((($test - $control)/$megabyte)) megabytes less than target"
 		sleep 5s
 		exit 0
 	else
-		echo "The source size is greater than the target"
+		echo "The local size is $((($control - $test)/$megabyte)) megabytes greater than the target"
 		exit 1
 	fi
 else
