@@ -33,10 +33,10 @@ echo $control
 		# https://www.ostechnix.com/the-mktemp-command-tutorial-with-examples-for-beginners/
 		
 		# https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps
-		rsync --archive --progress --partial-dir=${temp} ~/Documents/* ${mount}/${osx_documents}	
-		rsync --archive --progress --partial-dir=${temp} ~/Desktop/* ${mount}/${osx_desktop}
-		rsync --archive --progress --partial-dir=${temp} ~/Downloads/* ${mount}/${osx_downloads}
-		rsync --archive --progress --partial-dir=${temp} ~/Pictures/* ${mount}/${osx_pictures}
+		rsync --archive --progress --partial-dir="$temp" ~/Documents/* "$mount"/"$osx_documents"	
+		rsync --archive --progress --partial-dir="$temp" ~/Desktop/* "$mount"/"$osx_desktop"
+		rsync --archive --progress --partial-dir="$temp" ~/Downloads/* "$mount"/"$osx_downloads"
+		rsync --archive --progress --partial-dir="$temp" ~/Pictures/* "$mount"/"$osx_pictures"
 
 		sleep 5s
 		exit 0
