@@ -10,10 +10,12 @@ remote_user=$1
 declare -r mount=~/mnt
 declare -r temp=~/tmp
 
-osx_documents="/Users/${remote_user}/Documents"
-osx_desktop="/Users/${remote_user}/Desktop"
-osx_downloads="/Users/${remote_user}/Downloads"
-osx_pictures="/Users/${remote_user}/Pictures"
+osx_documents="/Users/$remote_user/Documents"
+osx_desktop="/Users/$remote_user/Desktop"
+osx_downloads="/Users/$remote_user/Downloads"
+osx_pictures="/Users/$remote_user/Pictures"
+osx_movies="/Users/$remote_user/Movies"
+osx_music="/Users/$remote_user/Music"
 
 if [[ -d "${mount}" ]]; then
 
