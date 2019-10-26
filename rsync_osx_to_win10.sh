@@ -6,10 +6,12 @@ declare -r temp=~/tmp
 declare -r megabyte=1000000
 declare -r kilobyte=1000
 
-declare -r osxdocuments=~/Documents
-declare -r osxdesktop=~/Desktop
-declare -r osxdownloads=~/Downloads
-declare -r osxpictures=~/Pictures
+declare -r osxdocuments="~/Documents"
+declare -r osxdesktop="~/Desktop"
+declare -r osxdownloads="~/Downloads"
+declare -r osxpictures="~/Pictures"
+declare -r osxmovies="~/Movies"
+declare -r osxmusic="~/Music"
 
 win10documents="/users/${remote_user}/documents"
 win10desktop="/users/${remote_user}/desktop"
@@ -34,12 +36,14 @@ echo "control :" $(($control/$megabyte)) " KB"
 		# https://www.ostechnix.com/the-mktemp-command-tutorial-with-examples-for-beginners/
 		# 
 		# https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps
-		# rsync --archive --progress --partial-dir=${temp} ${osxdocuments}/* ${mount}/${win10desktop}	
-		# rsync --archive --progress --partial-dir=${temp} ${osxdesktop}/* ${mount}/${win10desktop}
-		# rsync --archive --progress --partial-dir=${temp} ${osxdownloads}/* ${mount}/${win10documents}
-		# rsync --archive --progress --partial-dir=${temp} ${osxpictures}/* ${mount}/${win10pictures}
+		rsync --archive --progress --partial-dir="$temp" "$osxdocuments"/* "$mount"
+		rsync --archive --progress --partial-dir="$temp" "$osxdesktop"/* "$mount"
+		rsync --archive --progress --partial-dir="$temp" "$osxdownloads"/* "$mount"
+		rsync --archive --progress --partial-dir="$temp" "$osxpictures"/* "$mount"
+		rsync --archive --progress --partial-dir="$temp" "$osxmovies"/* "$mount"
+		rsync --archive --progress --partial-dir="$temp" "$osxmusic"/* "$mount"
 		sleep 5s
-		# echo "The local size is $((($test - $control)/$megabyte)) megabytes less than target"
+		echo "The local size is $((($test - $control)/$megabyte)) megabytes less than target"
 		exit 0
 	else
 		echo "The local size is $((($control - $test)/$megabyte)) megabytes greater than the target"
