@@ -45,6 +45,6 @@ echo "control :" $(($control/$megabyte))
 		exit 1
 	fi
 else
-	echo "mount directory already exists"
+	echo "Target is not mounted!"
 	exit 1
 fi
