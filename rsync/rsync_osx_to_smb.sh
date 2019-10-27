@@ -8,12 +8,12 @@ declare -r temp=~/tmp
 declare -r megabyte=1000000
 declare -r kilobyte=1000
 
-declare -r osxdocuments="~/Documents"
-declare -r osxdesktop="~/Desktop"
-declare -r osxdownloads="~/Downloads"
-declare -r osxpictures="~/Pictures"
-declare -r osxmovies="~/Movies"
-declare -r osxmusic="~/Music"
+declare -r osxdocuments=~/Documents
+declare -r osxdesktop=~/Desktop
+declare -r osxdownloads=~/Downloads
+declare -r osxpictures=~/Pictures
+declare -r osxmovies=~/Movies
+declare -r osxmusic=~/Music
 
 mnt_documents="$mount/$remote_user/documents"
 mnt_desktop="$mount/$remote_user/desktop"

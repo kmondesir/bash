@@ -10,14 +10,14 @@ target=$1
 share=$2
 admin=$3
 
-declare -r mount="~/mnt"
+declare -r mount=~/mnt
 
 # For security purposes the Administrator password is read into the system during the mounting of the share
 echo "Please type the password to your remote system and press ENTER:"
 read -s password
 
 if ! grep -qs $mount /proc/mounts; then
-
+    cd "$mount"
     mount -t smbfs //"$admin":"$password"@"$target"/"$share" "$mount"
     exit 0
 
