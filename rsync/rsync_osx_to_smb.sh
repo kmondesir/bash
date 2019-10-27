@@ -2,7 +2,7 @@
 
 
 # The script should be run with the after mount_smb has been successful. It takes no additional parameters.
-remote_user = "owner"
+remote_user="owner"
 declare -r mount=~/mnt
 declare -r temp=~/tmp
 declare -r megabyte=1000000
@@ -22,11 +22,14 @@ mnt_pictures="$mount/$remote_user/pictures"
 mnt_movies="$mount/$remote_user/movies"
 mnt_music="$mount/$remote_user/music"
 
+# test variable represents the source folder size
 test=$(sudo du -s ~/ | awk '{print $1}')
+# control variable represents the target folder size
 control=$(sudo du -s ~/mnt | awk '{print $1}')
 echo "test :" $(($test/$megabyte)) " KB"
 echo "control :" $(($control/$megabyte)) " KB"
 
+# checks if the mnt/user folder exists, if not it creates the folder
 if [[ ! -d "$mount"/$remote_user ]]; then
 
 	# https://www.geeksforgeeks.org/du-command-linux-examples/
@@ -43,6 +46,7 @@ if [[ ! -d "$mount"/$remote_user ]]; then
 
 fi
 
+# checks if source folder size is greater than target folder size
 if [[ $test -gt $control ]]; then
 	
 	# https://www.ostechnix.com/the-mktemp-command-tutorial-with-examples-for-beginners/
