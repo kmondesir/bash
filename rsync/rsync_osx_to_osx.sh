@@ -19,14 +19,15 @@ osx_pictures="/Users/$remote_user/Pictures"
 osx_movies="/Users/$remote_user/Movies"
 osx_music="/Users/$remote_user/Music"
 
-if [[ -d "${mount}" ]]; then
+if [[ true ]]; then
 
 # https://stackoverflow.com/questions/51715099/how-to-get-only-folder-size-from-du/51715324
-# local_size=$(du -sb --max-depth=0 ~/ | cut -f1)
-# target_size=$(du -sb --max-depth=0 ${mount}\${local_user} | cut -f1)
 
-test=$(du -s ~/ | awk '{print $1}')
+# test variable represents the source folder size
+test=$(sudo du -s ~/ | awk '{print $1}')
+# control variable represents the target folder size
 control=$(du -s ~/mnt | awk '{print $1}')
+
 echo "test :" $(($test/$megabyte)) " KB"
 echo "control :" $(($control/$megabyte)) " KB"
 

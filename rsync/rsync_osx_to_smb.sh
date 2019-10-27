@@ -26,6 +26,7 @@ mnt_music="$mount/$remote_user/music"
 test=$(sudo du -s ~/ | awk '{print $1}')
 # control variable represents the target folder size
 control=$(sudo du -s ~/mnt | awk '{print $1}')
+
 echo "test :" $(($test/$megabyte)) " KB"
 echo "control :" $(($control/$megabyte)) " KB"
 
@@ -34,8 +35,7 @@ if [[ ! -d "$mount"/$remote_user ]]; then
 
 	# https://www.geeksforgeeks.org/du-command-linux-examples/
 	# https://stackoverflow.com/questions/51715099/how-to-get-only-folder-size-from-du/51715324
-	# local_size=$(du -sb --max-depth=0 ~/ | cut -f1)
-	# target_size=$(du -sb --max-depth=0 ${mount}\${local_user} | cut -f1)
+	
 	mkdir "$mount"/"$remote_user"
 	mkdir "$mnt_documents"
 	mkdir "$mnt_desktop"
