@@ -12,13 +12,6 @@ declare -r temp=~/tmp
 declare -r megabyte=1000000
 declare -r kilobyte=1000
 
-osx_documents="/Users/${remote_user}/Documents"
-osx_desktop="/Users/${remote_user}/Desktop"
-osx_downloads="/Users/${remote_user}/Downloads"
-osx_pictures="/Users/${remote_user}/Pictures"
-osx_movies="/Users/${remote_user}/Movies"
-osx_music="/Users/${remote_user}/Music"
-
 if [[ true ]]; then
 
 # https://stackoverflow.com/questions/51715099/how-to-get-only-folder-size-from-du/51715324
@@ -36,12 +29,12 @@ echo "control :" $(($control/$megabyte)) " KB"
 		# https://www.ostechnix.com/the-mktemp-command-tutorial-with-examples-for-beginners/
 		
 		# https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps
-		rsync --archive --progress --partial-dir="${temp}" ~/Documents/* "$mount"/"$osx_documents"	
-		rsync --archive --progress --partial-dir="${temp}" ~/Desktop/* "$mount"/"$osx_desktop"
-		rsync --archive --progress --partial-dir="${temp}" ~/Downloads/* "$mount"/"$osx_downloads"
-		rsync --archive --progress --partial-dir="${temp}" ~/Pictures/* "$mount"/"$osx_pictures"
-		rsync --archive --progress --partial-dir="${temp}" ~/Pictures/* "$mount"/"$osx_movies"
-		rsync --archive --progress --partial-dir="${temp}" ~/Pictures/* "$mount"/"$osx_music"
+		rsync --archive --progress --partial-dir="${temp}" ${~/Documents} "$mount"/"$remote_user"	
+		rsync --archive --progress --partial-dir="${temp}" ${~/Desktop} "$mount"/"$remote_user"
+		rsync --archive --progress --partial-dir="${temp}" ${~/Downloads} "$mount"/"$remote_user"
+		rsync --archive --progress --partial-dir="${temp}" ${~/Pictures} "$mount"/"$remote_user"
+		rsync --archive --progress --partial-dir="${temp}" ${~/Movies} "$mount"/"$remote_user"
+		rsync --archive --progress --partial-dir="${temp}" ${~/Music} "$mount"/"$remote_user"
 
 		"The local size is $((($test - $control)/$megabyte)) megabytes less than target"
 		sleep 5s
