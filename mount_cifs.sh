@@ -2,6 +2,7 @@
 
 
 # Mounts an smb share using the following syntax mount_smb 10.3.4.2 '$C' 'CBW'
+# CBW stands for chocolate boy wonder
 # The position arguments are as follows:
 # 1: server
 # 2: share
