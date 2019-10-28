@@ -1,21 +1,33 @@
 #!/bin/bash
 
 
-# Mounts an smb share using the following syntax mount_smb 10.3.4.2 '$C' 'CBW'
-# CBW stands for chocolate boy wonder
-# The position arguments are as follows:
-# 1: server
-# 2: share
-# 3: administrator account
+
 target=$1
 share=$2
 admin=$3
+
+usage() {
+
+	cat <<END
+			The script's usage is as follows 
+			Mounts an smb share using the following syntax mount_cifs 10.3.4.2 '$C' 'CBW'
+			CBW stands for chocolate boy wonder
+			The position arguments are as follows:
+			1: server
+			2: share
+			3: administrator account
+	END
+}
 
 declare -r mount=~/mnt
 
 # For security purposes the Administrator password is read into the system during the mounting of the share
 echo "Please type the password to your remote system and press ENTER:"
 read -s password
+
+if [[ $# = 0 ]]; then
+	usage()
+fi
 
 if [[! grep -qs ${mount} /proc/mounts; then
     if [[ ping -c 1 $target ]]; then 
