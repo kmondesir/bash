@@ -16,14 +16,15 @@ declare -r mount=~/mnt
 echo "Please type the password to your remote system and press ENTER:"
 read -s password
 
-if ! grep -qs $mount /proc/mounts; then
-    cd "$mount"
-    mount -t smbfs //"$admin":"$password"@"$target"/"$share" "$mount"
-    exit 0
-
+if [[! grep -qs ${mount} /proc/mounts; then
+    if [[ ping -c 1 $target ]]; then 
+        mount -t smbfs //"$admin":"$password"@"$target"/"$share" "${mount}"
+        exit 0
+    else
+        echo "Host:$target is unreachable"
+        exit 1
+    fi
 else
-
     echo "Share already mounted"
     exit 1
-
 fi
