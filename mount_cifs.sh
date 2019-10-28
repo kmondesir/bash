@@ -16,6 +16,7 @@ usage() {
 			1: server
 			2: share
 			3: administrator account
+			Using the read commmand the password will be entered at run time.
 	END
 }
 
@@ -29,7 +30,7 @@ if [[ $# = 0 ]]; then
 	usage()
 fi
 
-if [[! grep -qs ${mount} /proc/mounts; then
+if [[! grep -qs ${mount} /proc/mounts ]]; then
     if [[ ping -c 1 $target ]]; then 
         mount -t cifs -o username="$admin",password="$password" //"$target"/"$share" "${mount}"
         exit 0
