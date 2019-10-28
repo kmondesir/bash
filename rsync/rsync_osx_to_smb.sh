@@ -15,13 +15,6 @@ declare -r osxpictures=~/Pictures
 declare -r osxmovies=~/Movies
 declare -r osxmusic=~/Music
 
-mnt_documents="${mount}/$remote_user/documents"
-mnt_desktop="${mount}/$remote_user/desktop"
-mnt_downloads="${mount}/$remote_user/downloads"
-mnt_pictures="${mount}/$remote_user/pictures"
-mnt_movies="${mount}/$remote_user/movies"
-mnt_music="${mount}/$remote_user/music"
-
 # test variable represents the source folder size
 test=$(sudo du -s ~/ | awk '{print $1}')
 # control variable represents the target folder size
