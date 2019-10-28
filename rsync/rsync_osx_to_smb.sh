@@ -17,9 +17,9 @@ declare -r osxmovies=~/Movies
 declare -r osxmusic=~/Music
 
 # test variable represents the source folder size
-test=$(sudo du -s ~/ | awk '{print $1}')
+test=$(sudo du -s ${home} | awk '{print $1}')
 # control variable represents the target folder size
-control=$(sudo du -s ~/mnt | awk '{print $1}')
+control=$(sudo du -s ${mount} | awk '{print $1}')
 
 echo "test :" $(($test/$megabyte)) " KB"
 echo "control :" $(($control/$megabyte)) " KB"
