@@ -31,12 +31,13 @@ echo "test :" $(($test/$megabyte)) " KB"
 echo "control :" $(($control/$megabyte)) " KB"
 
 # checks if the mnt/user folder exists, if not it creates the folder
-if [[ ! -d "${mount}"/$remote_user ]]; then
+if [[ ! -d "${mount}"/"$remote_user" ]]; then
 
 	# https://www.geeksforgeeks.org/du-command-linux-examples/
 	# https://stackoverflow.com/questions/51715099/how-to-get-only-folder-size-from-du/51715324
 	
 	mkdir "${mount}"/"$remote_user"
+	echo "${mount}"/"$remote_user"
 	mkdir "$mnt_documents"
 	mkdir "$mnt_desktop"
 	mkdir "$mnt_downloads"
@@ -46,8 +47,10 @@ if [[ ! -d "${mount}"/$remote_user ]]; then
 
 fi
 
+echo "Temp Directory:" "${temp}" "OSX Documents:" "${osxdocuments}" "Mount Point: $mnt_documents"
 # checks if source folder size is greater than target folder size
-if [[ $test -gt $control ]]; then
+if [[ ! $test -gt $control ]]; then
+	
 	
 	# https://www.ostechnix.com/the-mktemp-command-tutorial-with-examples-for-beginners/
 	# https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps
@@ -58,6 +61,7 @@ if [[ $test -gt $control ]]; then
 	rsync --archive --progress --partial-dir="${temp}" "${osxmovies}"/* "$mnt_movies"
 	rsync --archive --progress --partial-dir="${temp}" "${osxmusic}"/* "$mnt_music"
 	sleep 5s
+	umount "${mount}"
 	echo "The local size is $((($test - $control)/$megabyte)) megabytes less than target"
 	exit 0
 
