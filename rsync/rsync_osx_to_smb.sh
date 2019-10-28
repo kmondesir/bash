@@ -3,7 +3,7 @@
 
 # The script should be run with the after mount_smb has been successful. It takes no additional parameters.
 remote_user="owner"
-declare -r home=~/
+declare -r home=~
 declare -r mount=${home}/mnt
 declare -r temp=${home}/tmp
 
