@@ -5,6 +5,7 @@
 remote_user="owner"
 declare -r mount=~/mnt
 declare -r temp=~/tmp
+declare -r home=~/
 declare -r megabyte=1000000
 declare -r kilobyte=1000
 
