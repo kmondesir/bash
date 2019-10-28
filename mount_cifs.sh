@@ -18,7 +18,7 @@ read -s password
 
 if [[! grep -qs ${mount} /proc/mounts; then
     if [[ ping -c 1 $target ]]; then 
-        mount -t smbfs //"$admin":"$password"@"$target"/"$share" "${mount}"
+        mount -t cifs -o username="$admin",password="$password" //"$target"/"$share" "${mount}"
         exit 0
     else
         echo "Host:$target is unreachable"
