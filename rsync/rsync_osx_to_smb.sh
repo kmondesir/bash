@@ -3,18 +3,19 @@
 
 # The script should be run with the after mount_smb has been successful. It takes no additional parameters.
 remote_user="owner"
-declare -r mount=~/mnt
-declare -r temp=~/tmp
 declare -r home=~/
+declare -r mount=${home}/mnt
+declare -r temp=${home}/tmp
+
 declare -r megabyte=1000000
 declare -r kilobyte=1000
 
-declare -r osxdocuments=~/Documents
-declare -r osxdesktop=~/Desktop
-declare -r osxdownloads=~/Downloads
-declare -r osxpictures=~/Pictures
-declare -r osxmovies=~/Movies
-declare -r osxmusic=~/Music
+declare -r osxdocuments="${home}/Documents"
+declare -r osxdesktop="${home}/Desktop"
+declare -r osxdownloads="${home}/Downloads"
+declare -r osxpictures="${home}/Pictures"
+declare -r osxmovies="${home}/Movies"
+declare -r osxmusic="${home}/Music"
 
 # test variable represents the source folder size
 test=$(sudo du -s ${home} | awk '{print $1}')
@@ -35,7 +36,7 @@ if [[ ! -d "${mount}"/"$remote_user" ]]; then
 
 fi
 
-echo "Temp Directory:" "${temp}" "OSX Documents:" "${osxdocuments}" "Mount Point: $mnt_documents"
+echo "Temp Directory:" "${temp}" "OSX Documents:" "${osxdocuments}" "Mount Point: $mount/$remote_user"
 # checks if source folder size is greater than target folder size
 if [[ ! $test -gt $control ]]; then
 	
