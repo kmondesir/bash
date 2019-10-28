@@ -7,9 +7,11 @@ declare -r home=~
 declare -r mount=${home}/mnt
 declare -r temp=${home}/tmp
 
+# Variables containing values for directory size calculations
 declare -r megabyte=1000000
 declare -r kilobyte=1000
 
+# Variables for the locations of various user profile folders
 declare -r osxdocuments="${home}/Documents"
 declare -r osxdesktop="${home}/Desktop"
 declare -r osxdownloads="${home}/Downloads"
