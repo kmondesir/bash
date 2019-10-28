@@ -38,12 +38,6 @@ if [[ ! -d "${mount}"/"$remote_user" ]]; then
 	
 	mkdir "${mount}"/"$remote_user"
 	echo "${mount}"/"$remote_user"
-	mkdir "$mnt_documents"
-	mkdir "$mnt_desktop"
-	mkdir "$mnt_downloads"
-	mkdir "$mnt_pictures"
-	mkdir "$mnt_movies"
-	mkdir "$mnt_music"
 
 fi
 
@@ -54,12 +48,12 @@ if [[ ! $test -gt $control ]]; then
 	
 	# https://www.ostechnix.com/the-mktemp-command-tutorial-with-examples-for-beginners/
 	# https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps
-	rsync --archive --progress --partial-dir="${temp}" "${osxdocuments}"/* "$mnt_documents"
-	rsync --archive --progress --partial-dir="${temp}" "${osxdesktop}"/* "$mnt_desktop"
-	rsync --archive --progress --partial-dir="${temp}" "${osxdownloads}"/* "$mnt_downloads"
-	rsync --archive --progress --partial-dir="${temp}" "${osxpictures}"/* "$mnt_pictures"
-	rsync --archive --progress --partial-dir="${temp}" "${osxmovies}"/* "$mnt_movies"
-	rsync --archive --progress --partial-dir="${temp}" "${osxmusic}"/* "$mnt_music"
+	rsync --archive --progress --partial-dir="${temp}" "${osxdocuments}" "${mount}"/"$remote_user"
+	rsync --archive --progress --partial-dir="${temp}" "${osxdesktop}" "${mount}"/"$remote_user"
+	rsync --archive --progress --partial-dir="${temp}" "${osxdownloads}" "${mount}"/"$remote_user"
+	rsync --archive --progress --partial-dir="${temp}" "${osxpictures}" "${mount}"/"$remote_user"
+	rsync --archive --progress --partial-dir="${temp}" "${osxmovies}" "${mount}"/"$remote_user"
+	rsync --archive --progress --partial-dir="${temp}" "${osxmusic}" "${mount}"/"$remote_user"
 	sleep 5s
 	umount "${mount}"
 	echo "The local size is $((($test - $control)/$megabyte)) megabytes less than target"
