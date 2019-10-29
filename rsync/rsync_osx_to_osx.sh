@@ -7,9 +7,10 @@
 # No other arguments are required. This script should be run after the successful completion of mount_smb.
 remote_user=$1
 
-declare -r mount=~/mnt
-declare -r temp=~/tmp
-declare -r home=~/
+declare -r home=~
+declare -r mount=${home}/mnt
+declare -r temp=${home}/tmp
+
 declare -r megabyte=1000000
 declare -r kilobyte=1000
 
