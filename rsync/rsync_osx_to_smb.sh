@@ -1,7 +1,8 @@
 #!/bin/bash
 
 
-# The script should be run with the after mount_smb has been successful. It takes no additional parameters.
+# The script should be run with the after mount_smb has been successful e.g. rsync_osx_to_smb.sh 'owner'
+# 1: name of user
 remote_user=$1
 
 declare -r home=~
@@ -41,7 +42,7 @@ fi
 
 echo "Temp Directory:" "${temp}" "OSX Documents:" "${osxdocuments}" "Mount Point: $mount/$remote_user"
 # checks if source folder size is greater than target folder size
-if [[ ! $test -gt $control ]]; then
+if [[ $test -gt $control ]]; then
 	
 	
 	# https://www.ostechnix.com/the-mktemp-command-tutorial-with-examples-for-beginners/
