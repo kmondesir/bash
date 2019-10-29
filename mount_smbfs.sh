@@ -27,7 +27,8 @@ declare -r mount=${home}/mnt
 # 	usage()
 # fi
 
-if [[ true ]]; then
+# https://unix.stackexchange.com/questions/192273/which-partition-is-mounted-to-where 
+if ! mount | grep 'smbfs' > /dev/null ; then
     if ping -c 1 $target > /dev/null ; then 
         mount -t smbfs "//$admin@$target/$share" "${mount}"
         exit 0
