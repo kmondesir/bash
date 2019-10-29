@@ -8,7 +8,7 @@ admin=$3
 
 # usage() {
 
-# 	cat << END
+# cat <<- _END_
 # 			The script's usage is as follows 
 # 			Mounts an smb share using the following syntax mount_cifs 10.3.4.2 '$C' 'CBW'
 # 			CBW stands for chocolate boy wonder
@@ -16,15 +16,12 @@ admin=$3
 # 			1: server
 # 			2: share
 # 			3: administrator account
-# 			Using the read commmand the password will be entered at run time.
-# 	END
+#			If a password is required you will be prompted for it at execution time. 
+# _END_
 # }
 
 declare -r home=~
 declare -r mount=${home}/mnt
-
-# For security purposes the Administrator password is read into the system during the mounting of the share
-
 
 # if [[ $# = 0 ]]; then
 # 	usage()
