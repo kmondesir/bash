@@ -46,12 +46,12 @@ if [[ ! $test -gt $control ]]; then
 	
 	# https://www.ostechnix.com/the-mktemp-command-tutorial-with-examples-for-beginners/
 	# https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps
-	rsync --archive --progress --partial-dir="${temp}" "${osxdocuments}" "${mount}"/"$remote_user"
-	rsync --archive --progress --partial-dir="${temp}" "${osxdesktop}" "${mount}"/"$remote_user"
-	rsync --archive --progress --partial-dir="${temp}" "${osxdownloads}" "${mount}"/"$remote_user"
-	rsync --archive --progress --partial-dir="${temp}" "${osxpictures}" "${mount}"/"$remote_user"
-	rsync --archive --progress --partial-dir="${temp}" "${osxmovies}" "${mount}"/"$remote_user"
-	rsync --archive --progress --partial-dir="${temp}" "${osxmusic}" "${mount}"/"$remote_user"
+	rsync --archive --compress --progress --partial-dir="${temp}" "${osxdocuments}" "${mount}"/"$remote_user"
+	rsync --archive --compress --progress --partial-dir="${temp}" "${osxdesktop}" "${mount}"/"$remote_user"
+	rsync --archive --compress --progress --partial-dir="${temp}" "${osxdownloads}" "${mount}"/"$remote_user"
+	rsync --archive --compress --progress --partial-dir="${temp}" "${osxpictures}" "${mount}"/"$remote_user"
+	rsync --archive --compress --progress --partial-dir="${temp}" "${osxmovies}" "${mount}"/"$remote_user"
+	rsync --archive --compress --progress --partial-dir="${temp}" "${osxmusic}" "${mount}"/"$remote_user"
 	sleep 5s
 	umount "${mount}"
 	echo "The local size is $((($test - $control)/$megabyte)) megabytes less than target"

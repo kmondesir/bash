@@ -31,12 +31,12 @@ echo "control :" $(($control/$megabyte)) " KB"
 		# https://www.ostechnix.com/the-mktemp-command-tutorial-with-examples-for-beginners/
 		
 		# https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps
-		rsync --archive --progress --partial-dir="${temp}" "${home}/Documents" "$mount"/"$remote_user"	
-		rsync --archive --progress --partial-dir="${temp}" "${home}/Desktop" "$mount"/"$remote_user"
-		rsync --archive --progress --partial-dir="${temp}" "${home}/Downloads" "$mount"/"$remote_user"
-		rsync --archive --progress --partial-dir="${temp}" "${home}/Pictures" "$mount"/"$remote_user"
-		rsync --archive --progress --partial-dir="${temp}" "${home}/Movies" "$mount"/"$remote_user"
-		rsync --archive --progress --partial-dir="${temp}" "${home}/Music" "$mount"/"$remote_user"
+		rsync --archive --compress --progress --partial-dir="${temp}" "${home}/Documents" "$mount"/"$remote_user"	
+		rsync --archive --compress --progress --partial-dir="${temp}" "${home}/Desktop" "$mount"/"$remote_user"
+		rsync --archive --compress --progress --partial-dir="${temp}" "${home}/Downloads" "$mount"/"$remote_user"
+		rsync --archive --compress --progress --partial-dir="${temp}" "${home}/Pictures" "$mount"/"$remote_user"
+		rsync --archive --compress --progress --partial-dir="${temp}" "${home}/Movies" "$mount"/"$remote_user"
+		rsync --archive --compress --progress --partial-dir="${temp}" "${home}/Music" "$mount"/"$remote_user"
 
 		"The local size is $((($test - $control)/$megabyte)) megabytes less than target"
 		sleep 5s
