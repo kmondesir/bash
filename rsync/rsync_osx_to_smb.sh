@@ -24,7 +24,7 @@ declare -r osxmusic="${home}/Music"
 # test variable represents the source folder size
 test=$(sudo du -s "${home}" | awk '{print $1}')
 # control variable represents the target folder size
-control=$(sudo du -s "${mount}" | awk '{print $1}')
+control=$(du -s "${mount}" | awk '{print $1}')
 
 echo "test :" $(($test/$megabyte)) " KB"
 echo "control :" $(($control/$megabyte)) " KB"
