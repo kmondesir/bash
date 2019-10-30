@@ -1,6 +1,10 @@
 #!/bin/bash
 
 
+# Mounts searches a semicolon delimited e.g. install_printer 'HP_Director' 'print.list' 'print.awk'
+# 1: name of the printer
+# 2: path to list
+# 3: path to control file
 export -p name=$1
 export -p list=$2
 export -p reference=$3
