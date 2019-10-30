@@ -23,10 +23,6 @@ _END_
 declare -r home=~
 declare -r mount=${home}/mnt
 
-# if  $#==0 ; then
-# 	usage()
-# fi
-
 # https://unix.stackexchange.com/questions/192273/which-partition-is-mounted-to-where 
 if ! mount | grep 'smbfs' > /dev/null ; then
     if ping -c 1 $target > /dev/null ; then 
