@@ -10,7 +10,7 @@ usage() {
 
 cat <<- _END_
 			The script's usage is as follows 
-			Mounts an smb share using the following syntax mount_cifs 10.3.4.2 '$C' 'CBW'
+			Mounts an smb share using the following syntax mount_smbfs 10.3.4.2 '$C' 'CBW'
 			CBW stands for chocolate boy wonder
 			The position arguments are as follows:
 			1: server
