@@ -8,6 +8,7 @@ timestamp(){
 	# Function that returns the current timestamp
 	echo date "+%Y-%m-%dT%H:%M:%S"
 }
+# https://stackoverflow.com/questions/19306771/get-current-users-username-in-bash 
 remote_user=$(whoami)
 dir=$remote_user-timestamp
 
