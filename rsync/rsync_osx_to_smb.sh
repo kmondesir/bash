@@ -5,10 +5,13 @@
 # 1: name of user
 timestamp(){
 	# https://ryanstutorials.net/bash-scripting-tutorial/bash-functions.php 
+	# Function that returns the current timestamp
 	echo date "+%Y-%m-%dT%H:%M:%S"
 }
-remote_user=$1
+remote_user=$(whoami)
 dir=$remote_user-timestamp
+
+# Variables containing values for common directories
 declare -r home=~
 declare -r mount=${home}/mnt
 declare -r temp=${home}/tmp
@@ -47,7 +50,6 @@ fi
 echo "Temp Directory:" "${temp}" "OSX Documents:" "${osxdocuments}" "Mount Point: $mount/$dir"
 # checks if source folder size is greater than target folder size
 if [[ $test -gt $control ]]; then
-	
 	
 	# https://www.ostechnix.com/the-mktemp-command-tutorial-with-examples-for-beginners/
 	# https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps
