@@ -10,7 +10,7 @@ timestamp(){
 }
 # https://stackoverflow.com/questions/19306771/get-current-users-username-in-bash 
 remote_user=$(whoami)
-dir=$remote_user-timestamp
+dir=$remote_user-$(timestamp)
 
 # Variables containing values for common directories
 declare -r home=~
@@ -30,9 +30,9 @@ declare -r osxmovies="${home}/Movies"
 declare -r osxmusic="${home}/Music"
 
 # test variable represents the source folder size
-test=$(du -s "${home}" | awk '{print $1}')
+test=$(df "${home}" | grep dev | awk '{print $3}')
 # control variable represents the target folder size
-control=$(du -s "${mount}" | awk '{print $1}')
+control=$(df ${mount} | grep dev | awk '{print $4}')
 
 echo "test :" $(($test/$megabyte)) " KB"
 echo "control :" $(($control/$megabyte)) " KB"
@@ -54,12 +54,12 @@ if [[ $test -gt $control ]]; then
 	
 	# https://www.ostechnix.com/the-mktemp-command-tutorial-with-examples-for-beginners/
 	# https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps
-	rsync --archive --compress --progress --partial-dir="${temp}" "${osxdocuments}" "${mount}"/"$dir"
-	rsync --archive --compress --progress --partial-dir="${temp}" "${osxdesktop}" "${mount}"/"$dir"
-	rsync --archive --compress --progress --partial-dir="${temp}" "${osxdownloads}" "${mount}"/"$dir"
-	rsync --archive --compress --progress --partial-dir="${temp}" "${osxpictures}" "${mount}"/"$dir"
-	rsync --archive --compress --progress --partial-dir="${temp}" "${osxmovies}" "${mount}"/"$dir"
-	rsync --archive --compress --progress --partial-dir="${temp}" "${osxmusic}" "${mount}"/"$dir"
+	rsync --archive --compress --progress --exclude ".DS_Store" --partial-dir="${temp}" "${osxdocuments}" "${mount}"/"$dir"
+	rsync --archive --compress --progress --exclude ".DS_Store" --partial-dir="${temp}" "${osxdesktop}" "${mount}"/"$dir"
+	rsync --archive --compress --progress --exclude ".DS_Store" --partial-dir="${temp}" "${osxdownloads}" "${mount}"/"$dir"
+	rsync --archive --compress --progress --exclude ".DS_Store" --partial-dir="${temp}" "${osxpictures}" "${mount}"/"$dir"
+	rsync --archive --compress --progress --exclude ".DS_Store" --partial-dir="${temp}" "${osxmovies}" "${mount}"/"$dir"
+	rsync --archive --compress --progress --exclude ".DS_Store" --partial-dir="${temp}" "${osxmusic}" "${mount}"/"$dir"
 	sleep 5s
 	umount "${mount}"
 	echo "The local size is $((($test - $control)/$megabyte)) megabytes less than target"
