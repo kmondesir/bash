@@ -10,7 +10,7 @@ timestamp(){
 }
 # https://stackoverflow.com/questions/19306771/get-current-users-username-in-bash 
 remote_user=$(whoami)
-dir=$remote_user-timestamp
+dir=$remote_user-$(timestamp)
 
 # Variables containing values for common directories
 declare -r home=~
