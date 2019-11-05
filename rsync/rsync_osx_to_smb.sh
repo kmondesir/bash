@@ -30,12 +30,12 @@ declare -r osxmovies="${home}/Movies"
 declare -r osxmusic="${home}/Music"
 
 # test variable represents the source folder size
-test=$(df "${home}" | grep dev | awk '{print $3}')/$megabyte
+test=$(expr $(df "${home}" | grep dev | awk '{print $3}') / $megabyte)
 # control variable represents the target folder size
-control=$(df ${mount} | grep dev | awk '{print $4}')/$megabyte
+control=$(expr $(df ${mount} | grep // | awk '{print $4}') / $megabyte)
 
-echo "test :" $(($test/$megabyte)) " KB"
-echo "control :" $(($control/$megabyte)) " KB"
+echo "test:" " " $test " " "KB"
+echo "control:" " " $control " " "KB"
 
 # checks if the mnt/user folder exists, if not it creates the folder
 if [[ ! -d "${mount}"/"$dir" ]]; then
