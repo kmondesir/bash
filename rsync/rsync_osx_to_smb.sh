@@ -6,7 +6,7 @@
 timestamp(){
 	# https://ryanstutorials.net/bash-scripting-tutorial/bash-functions.php 
 	# Function that returns the current timestamp
-	echo $(date "+%Y-%m-%dT%H:%M:%S"
+	echo $(date "+%Y-%m-%dT%H:%M:%S")
 }
 # https://stackoverflow.com/questions/19306771/get-current-users-username-in-bash 
 remote_user=$(whoami)
@@ -50,7 +50,7 @@ fi
 
 echo "Temp Directory:" "${temp}" "OSX Documents:" "${osxdocuments}" "Mount Point: $mount/$dir"
 # checks if source folder size is greater than target folder size
-if [[ $test -gt $control ]]; then
+if [[ $test -lt $control ]]; then
 	
 	# https://www.ostechnix.com/the-mktemp-command-tutorial-with-examples-for-beginners/
 	# https://www.digitalocean.com/community/tutorials/how-to-use-rsync-to-sync-local-and-remote-directories-on-a-vps
