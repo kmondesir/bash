@@ -6,7 +6,7 @@
 timestamp(){
 	# https://ryanstutorials.net/bash-scripting-tutorial/bash-functions.php 
 	# Function that returns the current timestamp
-	echo $(date "+%Y-%m-%dT%H:%M:%S")
+	echo $(date "+%Y-%m-%dT%H\:%M\:%S")
 }
 # https://stackoverflow.com/questions/19306771/get-current-users-username-in-bash 
 remote_user=$(whoami)
