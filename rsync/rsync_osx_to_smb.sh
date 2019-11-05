@@ -6,7 +6,7 @@
 timestamp(){
 	# https://ryanstutorials.net/bash-scripting-tutorial/bash-functions.php 
 	# Function that returns the current timestamp
-	echo date "+%Y-%m-%dT%H:%M:%S"
+	echo $(date "+%Y-%m-%dT%H:%M:%S"
 }
 # https://stackoverflow.com/questions/19306771/get-current-users-username-in-bash 
 remote_user=$(whoami)
@@ -30,9 +30,9 @@ declare -r osxmovies="${home}/Movies"
 declare -r osxmusic="${home}/Music"
 
 # test variable represents the source folder size
-test=$(df "${home}" | grep dev | awk '{print $3}')
+test=$(df "${home}" | grep dev | awk '{print $3}')/$megabyte
 # control variable represents the target folder size
-control=$(df ${mount} | grep dev | awk '{print $4}')
+control=$(df ${mount} | grep dev | awk '{print $4}')/$megabyte
 
 echo "test :" $(($test/$megabyte)) " KB"
 echo "control :" $(($control/$megabyte)) " KB"
@@ -62,12 +62,12 @@ if [[ $test -gt $control ]]; then
 	rsync --archive --compress --progress --exclude ".DS_Store" --partial-dir="${temp}" "${osxmusic}" "${mount}"/"$dir"
 	sleep 5s
 	umount "${mount}"
-	echo "The local size is $((($test - $control)/$megabyte)) megabytes less than target"
+	echo "The local size is $(($test - $control)) megabytes less than target"
 	exit 0
 
 else
 
-	echo "The local size is $((($control - $test)/$megabyte)) megabytes greater than the target"
+	echo "The local size is $(($control - $test)) megabytes greater than the target"
 	exit 1
 
 fi
