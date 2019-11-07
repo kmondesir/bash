@@ -6,7 +6,7 @@
 timestamp(){
 	# https://ryanstutorials.net/bash-scripting-tutorial/bash-functions.php 
 	# Function that returns the current timestamp
-	echo $(date "+%Y-%m-%dT%H\:%M\:%S")
+	echo $(date "+D%Y-%m-%dT%H\:%M\:%S")
 }
 # https://stackoverflow.com/questions/19306771/get-current-users-username-in-bash 
 remote_user=$(whoami)
@@ -30,12 +30,12 @@ declare -r osxmovies="${home}/Movies"
 declare -r osxmusic="${home}/Music"
 
 # test variable represents the source folder size
-test=$(expr $(df "${home}" | grep dev | awk '{print $3}') / $megabyte)
+test=$(df "${home}" | grep dev | awk '{print $3}')
 # control variable represents the target folder size
-control=$(expr $(df ${mount} | grep // | awk '{print $4}') / $megabyte)
+control=$(df ${mount} | grep // | awk '{print $4}')
 
-echo "test:" " " $test " " "KB"
-echo "control:" " " $control " " "KB"
+echo "test:" " " $(( $test / $megabyte )) " " "KB"
+echo "control:" " " $(( $control / $megabyte )) " " "KB"
 
 # checks if the mnt/user folder exists, if not it creates the folder
 if [[ ! -d "${mount}"/"$dir" ]]; then
@@ -61,13 +61,14 @@ if [[ $test -lt $control ]]; then
 	rsync --archive --compress --progress --exclude ".DS_Store" --partial-dir="${temp}" "${osxmovies}" "${mount}"/"$dir"
 	rsync --archive --compress --progress --exclude ".DS_Store" --partial-dir="${temp}" "${osxmusic}" "${mount}"/"$dir"
 	sleep 5s
+	# https://www.tldp.org/LDP/abs/html/opprecedence.html
+	echo "The local size is $(($test / $megabytes - $control / $megabytes)) megabytes less than target"
 	umount "${mount}"
-	echo "The local size is $(($test - $control)) megabytes less than target"
 	exit 0
 
 else
 
-	echo "The local size is $(($control - $test)) megabytes greater than the target"
+	echo "The local size is $(($control / $megabytes - $test / $megabytes)) megabytes greater than the target"
 	exit 1
 
 fi
